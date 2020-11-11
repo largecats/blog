@@ -1,0 +1,91 @@
+---
+layout: default
+title: Archives
+permalink: /archive/
+icon: archive
+type: page
+---
+
+<!-- <h1>Archive of posts with {{ page.type }} '{{ page.title }}'</h1> -->
+
+
+<div class="page clearfix">
+    <div class="left">
+        <h1>{{page.title}}</h1>
+        <hr>
+        <ul>
+          {% for post in site.posts %}
+
+            {% unless post.next %}
+              <h2 id="y{{ post.date | date: '%Y' }}">{{ post.date | date: '%Y' }}</h2>
+            {% else %}
+              {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
+              {% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
+              {% if year != nyear %}
+                <h2 id="y{{ post.date | date: '%Y' }}">{{ post.date | date: '%Y' }}</h2>
+              {% endif %}
+            {% endunless %}
+
+            <li>
+                <time>
+                {{ post.date | date:"%F" }} {{ post.date | date: "%a" }}.
+                </time>
+                <a class="title" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+
+                {% include category.html %}
+                {% include tag.html %}
+            </li>
+
+          {% endfor %}
+        </ul>
+    </div>
+    <button class="anchor"><i class="fa fa-anchor"></i></button>
+    <div class="right">
+        <div class="wrap">
+
+            <!-- Content -->
+            <div class="side content">
+                <div>
+                    Content
+                </div>
+                <ul id="content-side" class="content-ul">
+                    {% assign counter = 0 %}
+                        {% for post in site.posts %}
+                          {% assign thisyear = post.date | date: "%Y" %}
+                          {% assign prevyear = post.previous.date | date: "%Y" %}
+                          {% assign counter = counter | plus: 1 %}
+                          {% if thisyear != prevyear %}
+                            <li><a data-scroll href="#y{{ post.date | date: '%Y' }}">{{ thisyear }} ({{ counter }})</a></li>
+                            {% assign counter = 0 %}
+                          {% endif %}
+                        {% endfor %}
+                </ul>
+            </div>
+            <!-- 其他div框放到这里 -->
+            <!-- <div class="side">bbbb</div> -->
+        </div>
+    </div>
+</div>
+<script src="{{ "/js/pageContent.js " | prepend: site.baseurl }}" charset="utf-8"></script>
+
+<!-- Gitalk comment start  -->
+
+<!-- Link Gitalk  -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://geektutu.github.io/hexo-theme-geektutu/js/gitalk.min.js"></script> 
+<div id="gitalk-container"></div>     <script type="text/javascript">
+    var gitalk = new Gitalk({
+
+    // main parameters of Gitalk
+		// clientID: '28c4c76758514846485c',
+		// clientSecret: '30229db8b9b9091109cc3326c3eb5d179e2cf617',
+	  accessToken: '00e5a034a328f41296ccae4845329a8b6aa52acd',
+		repo: 'largecats.github.io',
+		owner: 'largecats',
+		admin: ['largecats'],
+		// id: '/blog/page/0archives.html',
+    id: window.location.pathname,
+    });
+    gitalk.render('gitalk-container');
+</script> 
+<!-- Gitalk end -->
