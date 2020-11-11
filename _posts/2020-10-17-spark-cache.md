@@ -108,7 +108,7 @@ df.show() # triggers evaluation
 ```
 Execution plan of this query shows that `t0` is effectively evaluated twice.
 
-<div style="text-align: center"><img src="/images/t0_without_cache_DAG_visualization.jpg" width="600px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/t0_without_cache_DAG_visualization.jpg" width="600px" /></div>
 <div align="center">
 <sup>In particular, the region = 'TH' filter in t0 is evaluated twice, once to compute t1, the other time to compute t2.</sup>
 </div>
@@ -162,7 +162,7 @@ df = spark.sql(query)
 df.show()
 ```
 Execution plan of the second query shows that `t0` is stored in cache memory and reused by `t1` and `t2`.
-<div style="text-align: center"><img src="/images/t0_cache_DAG_visualization.jpg" width="600px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/t0_cache_DAG_visualization.jpg" width="600px" /></div>
 <div align="center">
 <sup>Because t0 is cached, it is read from InMemoryTableScan, and the filter on region in t0 is not re-evaluated when computing t1 and t2.</sup>
 </div>
@@ -175,12 +175,12 @@ In other words, if the query is simple but the dataframe is huge, it may be fast
 
 In the above example, the query is simple but the underlying dataframe is quite huge. As a result, caching `t0` takes more time (~14min) than not caching (~9min).
 
-<div style="text-align: center"><img src="/images/t0_cache_start-end_time.jpg" width="800px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/t0_cache_start-end_time.jpg" width="800px" /></div>
 <div align="center">
 <sup>Start time, end time of t0 with cache.</sup>
 </div>
 
-<div style="text-align: center"><img src="/images/t0_without_cache_start-end_time.jpg" width="800px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/t0_without_cache_start-end_time.jpg" width="800px" /></div>
 <div align="center">
 <sup>Start time, end time of t0 without cache.</sup>
 </div>
@@ -189,7 +189,7 @@ In the above example, the query is simple but the underlying dataframe is quite 
 
 For Spark jobs that use complex SQL queries, the `SQL` page in YARN UI is a good way to track the progress of each query. However due to Spark's lazy evaluation, if the intermeidate tables are not cached eagerly or don't have any actions called upon them (e.g., `df.show()`), all the queries will be lumped together into one huge execution plan to be evaluated at the last step, e.g.:
 
-<div style="text-align: center"><img src="/images/yarn_ui_sql_page.jpg" width="800px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/yarn_ui_sql_page.jpg" width="800px" /></div>
 <div align="center">
 </div>
 
@@ -233,7 +233,7 @@ df = df.withColumn('c3', complex_udf2(df['c2']))
 ...
 ```
 
-<div style="text-align: center"><img src="/images/stackoverflow_error.jpg" width="800px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/stackoverflow_error.jpg" width="800px" /></div>
 <div align="center">
 </div>
 

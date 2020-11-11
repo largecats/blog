@@ -15,7 +15,7 @@ I want to use PySpark form Jupyter Notebook for covenient view of program output
 
 ## Preparation
 
-This post assumes configurations in [this earlier post](https://largecats.github.io/2019/07/31/set-up-spark-on-windows/). I read [this article](https://blog.sicara.com/get-started-pyspark-jupyter-guide-tutorial-ae2fe84f594f).
+This post assumes configurations in [this earlier post](https://largecats.github.io/blog/2019/07/31/set-up-spark-on-windows/). I read [this article](https://blog.sicara.com/get-started-pyspark-jupyter-guide-tutorial-ae2fe84f594f).
 
 ## Method
 
@@ -41,7 +41,7 @@ There are two ways to set up PySpark with Jupyter Notebook. They are explained i
     print(lines.first())
     ```
     The output should look like this. 
-    ![](/images/direct-open-tryout.png){:width="800px"}
+    ![]({{ site.baseurl }}/images/direct-open-tryout.png){:width="800px"}
 
 ### Option 2: Invoke Spark environment in notebook on the fly
 
@@ -74,7 +74,7 @@ There are two ways to set up PySpark with Jupyter Notebook. They are explained i
     sc.stop()
     ```
     The output should look like this. 
-    ![](/images/findspark-tryout.png){:width="800px"}
+    ![]({{ site.baseurl }}/images/findspark-tryout.png){:width="800px"}
 
 
 Note that option 1 does not require manually creating a `SparkContext` object, while option 2 does. As a result, if the notebook created in option 1 is not opened from PySpark but from a regular Jupyter Notebook, the `sc` variable would not be recognized. Vice versa, if the notebook created in option 2 is opened from PySpark, the line `sc = pyspark.SparkContext()` would be redundant, and the program would raise an error saying that only one `SparkContext` can be run at once.

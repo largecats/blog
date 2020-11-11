@@ -87,14 +87,14 @@ for address in addressList:
 
 Consider the sample input file `address.csv` shown below, 
 
-![](/images/addresses.png){:width="800px"}
+![]({{ site.baseurl }}/images/addresses.png){:width="800px"}
 <div align="center">
 <sup>List of addresses.</sup>
 </div>
 
 we obtain the output file `coordinates.csv` shown below.
 
-![](/images/coordinates.png){:width="800px"}
+![]({{ site.baseurl }}/images/coordinates.png){:width="800px"}
 <div align="center">
 <sup>List of addresses together with latitude and longitude obtained via the geolocator.</sup>
 </div>

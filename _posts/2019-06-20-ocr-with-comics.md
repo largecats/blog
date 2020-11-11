@@ -13,7 +13,7 @@ I came across [this motion comic](https://www.youtube.com/watch?v=1LBFR90f6rg) (
 
 In the motion comic, a video message is composed by putting together footage from various videos. I wanted to do the same with the image dimension, i.e., compose an image message by putting together various cropped images from the comics in a Montage-ish manner, as shown below. To read the message, just read off the speech bubbles in each image from left to right and top to down.
 
-<div style="text-align: center"><img src="/images/rewind-message.png" width="800px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/rewind-message.png" width="800px" /></div>
 <div align="center">
 <sup>Page 18-19 of The Transformers: More than Meets the Eye #16.</sup>
 </div>
@@ -70,14 +70,14 @@ import csv
 
 First of all, we need to find all (or as many as possible) speech bubbles in a given comic page. Luckily, speech bubbles usually have relatively well-defined edges and mostly rectangular shapes. To exploit these properties in detecting speech bubbles, we use the `findContours()` function from `cv2` to recognize edges in the comic page and bound them using rectangles (`boundingRect()`), which would then become the speech bubble candidates. As shown below, `findContours()` picks up a lot of noise that are not speech bubbles. 
 
-<div style="text-align: center"><img src="/images/all_rectangles.png" width="450px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/all_rectangles.png" width="450px" /></div>
 <div align="center">
 <sup>Page 01 of Transformers: Megatron Origin #1 with speech bubble candidates (in green) before filtering.</sup>
 </div>
 
 Luckily, speech bubbles have a small range of sizes. Thus, we can filter out the candidates that are unlikely to be speech bubbles because they are either too large or too small, as shown below.
 
-<div style="text-align: center"><img src="/images/filtered_rectangles.png" width="450px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/filtered_rectangles.png" width="450px" /></div>
 <div align="center">
 <sup>Page 01 of Transformers: Megatron Origin #1 with speech bubble candidates (in green) after filtering.</sup>
 </div>
@@ -232,11 +232,11 @@ for imagePath in looper(rootDir):
 
 The resulting data file looks like this:
 
-![](/images/ocr-result.png){:width="800px"}
+![]({{ site.baseurl }}/images/ocr-result.png){:width="800px"}
 
 There are still noises, but at least most of the comic script are picked up reasonably well. This is enough for our purpose, since we technically only need a relatively small number of sparsely distributed individual words that are correctly recognized.
 
 <!-- Here is an example of the image message that can be composed from the dictionary built above.
 
-<div style="text-align: center"><img src="/images/comic-ocr-message.png" width="400px" /></div> -->
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/comic-ocr-message.png" width="400px" /></div> -->
 

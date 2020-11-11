@@ -23,7 +23,7 @@ All code can be found [here](https://github.com/largecats/text-analysis/tree/mas
 
 ### Scraping movie reviews
 
-Using techniques discussed [here](https://largecats.github.io/2019/06/18/Scrape-movie-information/), I collected the IMDb reviews for *Bumblebee* and seven other productions in the franchise. The only difference is that there are more dynamic web content to deal with this time: There are many "load more" buttons on the web page that need to be clicked in order to see all the movie reviews. Luckily, this can be taken care of by the `click()` method of a button object made possible via Selenium, in a manner as follows.
+Using techniques discussed [here](https://largecats.github.io/blog/2019/06/18/Scrape-movie-information/), I collected the IMDb reviews for *Bumblebee* and seven other productions in the franchise. The only difference is that there are more dynamic web content to deal with this time: There are many "load more" buttons on the web page that need to be clicked in order to see all the movie reviews. Luckily, this can be taken care of by the `click()` method of a button object made possible via Selenium, in a manner as follows.
 ```python
 # click "load more" to load all results until there is no more "load more" button
 while True:
@@ -37,7 +37,7 @@ while True:
 ``` 
 The resulting data file for the movie *Bumblebee* looks something like this:
 
-![](/images/BBB-review-csv.png){:width="800px"}
+![]({{ site.baseurl }}/images/BBB-review-csv.png){:width="800px"}
 
 ### Text analysis
 
@@ -151,49 +151,49 @@ plt.show()
 
 Below is a wordcloud of the reviews for *Bumblebee*, followed by that of the review titles.
 
-![](/images/BBB-review-wordcloud.png){:width="800px"}
+![]({{ site.baseurl }}/images/BBB-review-wordcloud.png){:width="800px"}
 <div align="center">
 <sup>Word cloud of movies reviews of Bumblebee.</sup>
 </div>
 
-![](/images/BBB-title-wordcloud.png){:width="800px"}
+![]({{ site.baseurl }}/images/BBB-title-wordcloud.png){:width="800px"}
 <div align="center">
 <sup>Word cloud of movie review titles of Bumblebee.</sup>
 </div>
 
 The wordcloud of the movie review titles seems to contain less noise, or uninformative words. This is expected as the reviews have not been filtered for words of importance using metrics such as the [TF-IDF score](http://www.tfidf.com/). In light of this, I generated word clouds from the titles of movie reviews of some of the other movies in the franchise, listed below.
 
-![](/images/G1_wordcloud.png){:width="800px"}
+![]({{ site.baseurl }}/images/G1_wordcloud.png){:width="800px"}
 <div align="center">
 <sup><a href = "https://www.imdb.com/title/tt0086817/reviews?sort=helpfulnessScore&dir=desc&ratingFilter=0">G1</a>.</sup>
 </div>
 
-![](/images/G1_The_Movie_wordcloud.png){:width="800px"}
+![]({{ site.baseurl }}/images/G1_The_Movie_wordcloud.png){:width="800px"}
 <div align="center">
 <sup><a href = "https://www.imdb.com/title/tt0092106/reviews?sort=helpfulnessScore&dir=desc&ratingFilter=0">G1 The Movie</a>.</sup>
 </div>
 
-![](/images/TF1_wordcloud.png){:width="800px"}
+![]({{ site.baseurl }}/images/TF1_wordcloud.png){:width="800px"}
 <div align="center">
 <sup><a href = "https://www.imdb.com/title/tt0418279/reviews?sort=helpfulnessScore&dir=desc&ratingFilter=0">Transformers (2007)</a>.</sup>
 </div>
 
-![](/images/TF2_wordcloud.png){:width="800px"}
+![]({{ site.baseurl }}/images/TF2_wordcloud.png){:width="800px"}
 <div align="center">
 <sup><a href = "https://www.imdb.com/title/tt1055369/reviews?sort=helpfulnessScore&dir=desc&ratingFilter=0">Transformers: Revenge of the Fallen</a>.</sup>
 </div>
 
-![](/images/TF3_wordcloud.png){:width="800px"}
+![]({{ site.baseurl }}/images/TF3_wordcloud.png){:width="800px"}
 <div align="center">
 <a href = "https://www.imdb.com/title/tt1399103/reviews?sort=helpfulnessScore&dir=desc&ratingFilter=0">Transformers: Dark of the Moon</a>.
 </div>
 
-![](/images/TF4_wordcloud.png){:width="800px"}
+![]({{ site.baseurl }}/images/TF4_wordcloud.png){:width="800px"}
 <div align="center">
 <sup><a href = "https://www.imdb.com/title/tt2109248/reviews?sort=helpfulnessScore&dir=desc&ratingFilter=0">Transformers: Age of Extinction</a>.</sup>
 </div>
 
-![](/images/TF5_wordcloud.png){:width="800px"}
+![]({{ site.baseurl }}/images/TF5_wordcloud.png){:width="800px"}
 <div align="center">
 <sup><a href = "https://www.imdb.com/title/tt3371366/reviews?sort=helpfulnessScore&dir=desc&ratingFilter=0">Transformers: The Last Knight</a>.</sup>
 </div>
@@ -279,42 +279,42 @@ Polarity scores for some titles are shown below. The analyzer does not pick up t
 
 Histograms of the polarity scores (compound) for the review titles of the 8 movies are shown below.
 
-<div style="text-align: center"><img src="/images/G1_polarity_scores.png" width="600px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/G1_polarity_scores.png" width="600px" /></div>
 <div align="center">
 <sup><a href = "https://www.imdb.com/title/tt0086817/reviews?sort=helpfulnessScore&dir=desc&ratingFilter=0">G1</a>.</sup>
 </div>
 
-<div style="text-align: center"><img src="/images/G1_The_Movie_polarity_scores.png" width="600px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/G1_The_Movie_polarity_scores.png" width="600px" /></div>
 <div align="center">
 <sup><a href = "https://www.imdb.com/title/tt0092106/reviews?sort=helpfulnessScore&dir=desc&ratingFilter=0">G1 The Movie</a>.</sup>
 </div>
 
-<div style="text-align: center"><img src="/images/TF1_polarity_scores.png" width="600px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/TF1_polarity_scores.png" width="600px" /></div>
 <div align="center">
 <sup><a href = "https://www.imdb.com/title/tt0418279/reviews?sort=helpfulnessScore&dir=desc&ratingFilter=0">Transformers (2007)</a>.</sup>
 </div>
 
-<div style="text-align: center"><img src="/images/TF2_polarity_scores.png" width="600px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/TF2_polarity_scores.png" width="600px" /></div>
 <div align="center">
 <sup><a href = "https://www.imdb.com/title/tt1055369/reviews?sort=helpfulnessScore&dir=desc&ratingFilter=0">Transformers: Revenge of the Fallen</a>.</sup>
 </div>
 
-<div style="text-align: center"><img src="/images/TF3_polarity_scores.png" width="600px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/TF3_polarity_scores.png" width="600px" /></div>
 <div align="center">
 <sup><a href = "https://www.imdb.com/title/tt1399103/reviews?sort=helpfulnessScore&dir=desc&ratingFilter=0">Transformers: Dark of the Moon</a>.</sup>
 </div>
 
-<div style="text-align: center"><img src="/images/TF4_polarity_scores.png" width="600px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/TF4_polarity_scores.png" width="600px" /></div>
 <div align="center">
 <sup><a href = "https://www.imdb.com/title/tt2109248/reviews?sort=helpfulnessScore&dir=desc&ratingFilter=0">Transformers: Age of Extinction</a>.</sup>
 </div>
 
-<div style="text-align: center"><img src="/images/TF5_polarity_scores.png" width="600px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/TF5_polarity_scores.png" width="600px" /></div>
 <div align="center">
 <sup><a href = "https://www.imdb.com/title/tt3371366/reviews?sort=helpfulnessScore&dir=desc&ratingFilter=0">Transformers: The Last Knight</a>.</sup>
 </div>
 
-<div style="text-align: center"><img src="/images/BBB_polarity_scores.png" width="600px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/BBB_polarity_scores.png" width="600px" /></div>
 <div align="center">
 <sup><a href = "https://www.imdb.com/title/tt4701182/reviews?sort=helpfulnessScore&dir=desc&ratingFilter=0">Bumblebee</a>.</sup>
 </div>

@@ -29,12 +29,12 @@ I read chapter 2 of O'Reilly's [Learning Spark](https://www.oreilly.com/library/
 
 ## Result
 
-![](/images/pyspark.png){:width="800px"}
+![]({{ site.baseurl }}/images/pyspark.png){:width="800px"}
 <div align="center">
 <sup>Python version of the Spark shell.</sup>
 </div>
 
-![](/images/scala_spark.png){:width="800px"}
+![]({{ site.baseurl }}/images/scala_spark.png){:width="800px"}
 <div align="center">
 <sup>Scala version of the Spark shell.</sup>
 </div>

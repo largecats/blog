@@ -24,7 +24,7 @@ Spark has 2 deploy modes, client mode and cluster mode. Cluster mode is ideal fo
 1. We can't access the driver program's log from the driver server (only the client process' log is available to the driver server).
 2. We can't terminate the spark application via Ctrl-C or by marking success/killing tasks in the Airflow scheduler (doing so will only kill the client process running on the driver server, not the spark application itself).
 
-<div style="text-align: center"><img src="/images/cluster_mode-Page-1.png" width="800px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/cluster_mode-Page-1.png" width="800px" /></div>
 <div align="center">
 </div>
 
@@ -106,14 +106,14 @@ A naiive approach would be to print the applicationId from the spark session to 
 
 After some digging, we found anoter way to get the applicationId. In cluster mode, the spark-submit command is launched by a client process, which runs entirely on the driver server. The log of this client process contains the applicationId, and this log - because the client process is run by the driver server - can be printed to the driver server's console. In other words, this is the only place where the shell script can access the spark job's applicationId.
 
-<div style="text-align: center"><img src="/images/client_process_log.png" width="800px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/client_process_log.png" width="800px" /></div>
 <div align="center">
 <sup>Client process log containing the applicationId.</sup>
 </div>
 
 #### Implementation
 
-<div style="text-align: center"><img src="/images/cluster_mode-Page-2.png" width="800px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/cluster_mode-Page-2.png" width="800px" /></div>
 <div align="center">
 </div>
 
@@ -142,7 +142,7 @@ ${ROOT}/xxx/xxx/${FOLDER_NAME}/${SCRIPT_NAME}.py ${param}
 1. Launch the client process via `run`.
 2. Set trap for the interruption signals SIGINT, SIGTERM to kill the application upon receiving termination signals SIGINT (Ctrl-C) and SIGTERM (Airflow mark success/kill).
    1. Note that Airflow has its own catch and cleanup mechanism for SIGTERM. So unless our Airflow can be customized, marking success/killing tasks on Airflow would not trigger our cleanup mechanism detailed below.
-   <div style="text-align: center"><img src="/images/airflow_SIGTERM.png" width="800px" /></div>
+   <div style="text-align: center"><img src="{{ site.baseurl }}/images/airflow_SIGTERM.png" width="800px" /></div>
     <div align="center">
     </div>
 3. Read the client process' log line by line to extract the applicationId.
@@ -379,13 +379,13 @@ collect_log() {
 #### Workflow
 [YARN's spark application statuses](https://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YarnCommands.html#application) are:
 
-<div style="text-align: center"><img src="/images/spark_application_statuses.png" width="800px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/spark_application_statuses.png" width="800px" /></div>
 <div align="center">
 </div>
 
 [YARN's log aggregation statuses](http://hadoop.apache.org/docs/r3.1.0/hadoop-yarn/hadoop-yarn-api/apidocs/org/apache/hadoop/yarn/api/records/LogAggregationStatus.html) are:
 
-<div style="text-align: center"><img src="/images/yarn_log_aggregation_statuses.png" width="600px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/yarn_log_aggregation_statuses.png" width="600px" /></div>
 <div align="center">
 </div>
 
@@ -397,7 +397,7 @@ If the job is killed before reaching SUBMITTED status
 * `kill_app` won't be invoked as the spark application is not yet launched;
 * `collect_log` won't be triggered as no log is generated.
 
-<div style="text-align: center"><img src="/images/spark_application_kill_before_submitted.png" width="800px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/spark_application_kill_before_submitted.png" width="800px" /></div>
 <div align="center">
 </div>
 
@@ -405,7 +405,7 @@ If the job is killed in or after SUBMITTED status but before reaching RUNNING st
 * `kill_app` will be invoked to kill the application before eventually exiting from the client process;
 * `collect_log` won't be triggered as no log is generated.
 
-<div style="text-align: center"><img src="/images/spark_application_kill_before_running.png" width="800px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/spark_application_kill_before_running.png" width="800px" /></div>
 <div align="center">
 </div>
 
@@ -413,6 +413,6 @@ If the job is killed after RUNNING status
 * `kill_app` will be invoked to kill the application before eventually exiting from the client process;
 * `collect_log` will be triggered to collect the YARN aggregated logs after the application is killed.
 
-<div style="text-align: center"><img src="/images/spark_application_kill_after_running.png" width="800px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/spark_application_kill_after_running.png" width="800px" /></div>
 <div align="center">
 </div>

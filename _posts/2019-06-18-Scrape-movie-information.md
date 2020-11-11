@@ -77,15 +77,15 @@ Then we parse the page we just obtained as html. This gives the html code of the
 
 One can also view the html code directly from the browser. E.g., in chrome, just right-click and select "Inspect" (alternatively, `Ctrl-Shift-I`), and the page html code is in "Elements", as shown below.
 
-![](/images/douban-inspect-html.png){:width="800px"}
+![]({{ site.baseurl }}/images/douban-inspect-html.png){:width="800px"}
 
 By inspecting the page html code, we see that one page has 25 containers wrapped by the tags `<li>...</li>`, each corresponding to a movie.
 
-![](/images/douban-inspect-containers.png){:width="800px"}
+![]({{ site.baseurl }}/images/douban-inspect-containers.png){:width="800px"}
 
 Expanding the code within a container, we can locate the individual code blocks that correspond to the information we want to collect.
 
-![](/images/douban-inspect-container.png){:width="800px"}
+![]({{ site.baseurl }}/images/douban-inspect-container.png){:width="800px"}
 
 Thus, we can scrape the information as follows. The url of the movie page is contained in the header of the container, wrapped by `<div class="hd">...</div>`. We can use this observation to locate the url and enter the Douban page of the movie.
 ```python
@@ -104,7 +104,7 @@ Thus, we can scrape the information as follows. The url of the movie page is con
 ```
 We can now begin to collect the information we need. E.g., to scrape the year the movie is released, we observe that year is wrapped in `<span class="year">...</span>`.
 
-![](/images/douban-inspect-year.png){:width="800px"}
+![]({{ site.baseurl }}/images/douban-inspect-year.png){:width="800px"}
 
 Thus, we can extract year using regular expression as follows.
 ```python
@@ -116,7 +116,7 @@ Thus, we can extract year using regular expression as follows.
 ```
 Similarly, we observe that the Douban rating is wrapped in 
 
-![](/images/douban-inspect-rating.png){:width="800px"}
+![]({{ site.baseurl }}/images/douban-inspect-rating.png){:width="800px"}
 
 And so it can be extracted like this.
 ```python
@@ -128,7 +128,7 @@ We still need the movie's genre, region, and imdb rating. Since genre and region
 
 Luckily, the Douban page contains a link to the movie's IMDb page. So we can directly access the IMDb movie profile from where we were. Again, a comparison of the html code and the Python code to extract the IMDb link:
 
-![](/images/douban-inspect-imdb.png){:width="800px"}
+![]({{ site.baseurl }}/images/douban-inspect-imdb.png){:width="800px"}
 
 ```python
         # ender imdb movie page from douban
@@ -158,7 +158,7 @@ movieInfo.to_csv(fileName, sep = ",", encoding = "utf-8", index = False)
 ```
 The resulting data file looks something like this:
 
-![](/images/douban-csv.png){:width="800px"}
+![]({{ site.baseurl }}/images/douban-csv.png){:width="800px"}
 
 #### IMDb top 250 vs Douban
 
@@ -316,18 +316,18 @@ movieInfo.to_csv(fileName, sep = ",", encoding = "utf-8", index = False)
 ```
 The resulting data file looks something like this:
 
-![](/images/imdb-csv.png){:width="800px"}
+![]({{ site.baseurl }}/images/imdb-csv.png){:width="800px"}
 
 ### Visualization
 
 The histograms show that the ratings of both IMDb and Douban's own top 250 movies are between 8 and 10, with Douban having a slightly higher average. Again for both IMDb and Douban, the ratings of their own top 250 movies have a smaller spread than those on the other site, meaning that both websites have some top movies that are rated either quite a bit higher or lower on the other website. That said, Douban in general seems to be more "tolerant" with the top movies on IMDb than the other way around.
 
-![](/images/DoubanTop250vsIMDB.png){:width="800px"}
+![]({{ site.baseurl }}/images/DoubanTop250vsIMDB.png){:width="800px"}
 
-![](/images/IMDBTop250vsDouban.png){:width="800px"}
+![]({{ site.baseurl }}/images/IMDBTop250vsDouban.png){:width="800px"}
 
 The distributions of genres among the top 250 movies on the two websites seem similar, with the most popular genre being drama, followed by adventure, comedy, crime, etc. Regarding regions, the United States remains the country that produces the most top movies on both websites. Yet there are evidently more movies of Eastern origin among Douban's top 250 than IMDb's, e.g., Japan, China, Hong Kong, Taiwan, India, Thailand. Similarly, there are more movies of Western origin among IMDb's top 250, e.g., the United States alone occupies over half, followed by countries in Europe. 
 
-![](/images/DoubanTop250vsIMDB_pie.png){:width="800px"}
+![]({{ site.baseurl }}/images/DoubanTop250vsIMDB_pie.png){:width="800px"}
 
-![](/images/IMDBTop250vsDouban_pie.png){:width="800px"}
+![]({{ site.baseurl }}/images/IMDBTop250vsDouban_pie.png){:width="800px"}

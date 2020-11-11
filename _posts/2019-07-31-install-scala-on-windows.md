@@ -19,7 +19,7 @@ I read [Scala's documentation](https://docs.scala-lang.org/).
 
 ## Method
 
-1. Install Java as explained in [this post](https://largecats.github.io/2019/07/31/install-spark-on-windows/).
+1. Install Java as explained in [this post](https://largecats.github.io/blog/2019/07/31/install-spark-on-windows/).
 2. Install Scala (without sbt) from [here](https://downloads.lightbend.com/scala/2.13.0/scala-2.13.0.msi).
 3. Create a system variable `SCALA_HOME` and set it to the path of the Scala installation.
 4. Add `%SCALA_HOME%\jre\bin` to path.

@@ -15,7 +15,7 @@ I want to use spark via both python and scala with Jupyter notebook without havi
 
 ## Preparation
 
-This post assumes configurations [here](https://largecats.github.io/2019/07/31/install-spark-on-windows/) and [here](https://largecats.github.io/2019/07/31/set-up-pyspark-with-jupyter-notebook/).
+This post assumes configurations [here](https://largecats.github.io/blog/2019/07/31/install-spark-on-windows/) and [here](https://largecats.github.io/blog/2019/07/31/set-up-pyspark-with-jupyter-notebook/).
 
 
 ## Method
@@ -26,4 +26,4 @@ Follow the instructions [here](https://github.com/Valassis-Digital-Media/spylon-
 
 ## Result
 
-![](/images/spylon.png){:width="800px"}
+![]({{ site.baseurl }}/images/spylon.png){:width="800px"}

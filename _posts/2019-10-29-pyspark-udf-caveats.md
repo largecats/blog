@@ -154,7 +154,7 @@ Now, instead of `df.number > 0`, use a `filter_udf` as the predicate. Observe th
                +- *(1) FileScan parquet [orderid#70L,itemid#71L,number#72L,price#73,weight#74] Batched: true, Format: Parquet, Location: InMemoryFileIndex[hdfs://localhost:9000/user/xiaolinfan/demo/df.parquet], PartitionFilters: [], PushedFilters: [], ReadSchema: struct<orderid:bigint,itemid:bigint,number:bigint,price:double,weight:double>
 ```
 
-<div style="text-align: center"><img src="/images/time_compare.png" width="600px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/time_compare.png" width="600px" /></div>
 <div align="center">
 <sup>Frequency distribution of execution times of df1.count() and df2.count(), with sample size 30.</sup>
 </div>
@@ -193,19 +193,19 @@ df_item.show()
 ```
 
 Submitting this script via `spark-submit --master yarn` generates the following output. Observe that the the first `10` rows of the dataframe have `item_price == 0.0`, and the `.show()` command computes the first `20` rows of the dataframe, so we expect the `print()` statements in `get_item_price_udf()` to be executed. However, they are not printed to the console.
-<div style="text-align: center"><img src="/images/udf_print_not_shown.png" width="600px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/udf_print_not_shown.png" width="600px" /></div>
 <div align="center">
 <sup>Print statements inside udfs are not shown in console.</sup>
 </div>
 
 This can be explained by the nature of distributed execution in Spark (see [here](https://www.oreilly.com/library/view/learning-spark/9781449359034/)). In short, objects are defined in driver program but are executed at worker nodes (or executors). In particular, udfs are executed at executors. Thus, in order to see the `print()` statements inside udfs, we need to view the executor logs.
-<div style="text-align: center"><img src="/images/distributed_execution.png" width="600px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/distributed_execution.png" width="600px" /></div>
 <div align="center">
 <sup>Spark's distributed execution, taken from [here](https://www.oreilly.com/library/view/learning-spark/9781449359034/).</sup>
 </div>
 
 Another way to validate this is to observe that if we submit the spark job in standalone mode without distributed execution, we can directly see the udf `print()` statements in the console:
-<div style="text-align: center"><img src="/images/standalone.png" width="400px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/standalone.png" width="400px" /></div>
 <div align="center">
 <sup>Running in standalone mode without distributed execution.</sup>
 </div>
@@ -224,14 +224,14 @@ There are a few workarounds.
 
 in `yarn-site.xml` in `$HADOOP_HOME/etc/hadoop/`.
 1. View executor logs via `yarn logs -applicationId <application_id>`, as instructed [here](https://spark.apache.org/docs/latest/running-on-yarn.html#debugging-your-application). `application_id` can be found in the resource manager UI
-<div style="text-align: center"><img src="/images/application_id.png" width="800px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/application_id.png" width="800px" /></div>
 <div align="center">
 </div>
 or via the command `yarn application -list -appStates ALL` (`-appStates ALL` shows applications that are finished).
 
-![](/images/executor_log1.png){:width="800px"}
+![]({{ site.baseurl }}/images/executor_log1.png){:width="800px"}
 
-![](/images/executor_log2.png){:width="800px"}
+![]({{ site.baseurl }}/images/executor_log2.png){:width="800px"}
 
 Note: To see that the above is the log of an executor and not the driver, can view the driver ip address at `yarn application -status <application_id>`. Usually, the container ending with `000001` is where the driver is run.
 
@@ -248,7 +248,7 @@ def get_item_price(number, price):
         raise Exception(msg)
     return item_price
 ```
-<div style="text-align: center"><img src="/images/raise_exception.png" width="800px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/raise_exception.png" width="800px" /></div>
 <div align="center">
 </div>
 
@@ -263,7 +263,7 @@ Yet another workaround is to wrap the message with the output, as suggested [her
 Serialization is the process of turning an object into a format that can be stored/transmitted (e.g., byte stream) and reconstructed later.
 
 E.g., serializing and deserializing trees:
-<div style="text-align: center"><img src="/images/serializeTree.jpg" width="400px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/serializeTree.jpg" width="400px" /></div>
 <div align="center">
 <sup>A tree object can be serialized into a stream of characters and deserialized back into the tree, taken from [here](https://www.geeksforgeeks.org/serialize-deserialize-binary-tree/).</sup>
 </div>
@@ -296,7 +296,7 @@ get_channelid_udf = udf(get_channelid, StringType())
 # apply udf
 df_channelid = df.withColumn('channelid', get_channelid_udf(df['orderid']))
 ```
-<div style="text-align: center"><img src="/images/could_not_serialize.png" width="800px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/could_not_serialize.png" width="800px" /></div>
 <div align="center">
 <sup>Querying inside udf raises "could not serialize" exception.</sup>
 </div>

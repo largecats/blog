@@ -81,7 +81,7 @@ The theme template this blog uses has a comment feature that uses Disqus. I modi
 
     "Application name" is the name of the blog site's GitHub repository. "Homepage URL" is the url of the blog site. "Authorization callback URL" is the same as "Homepage URL". E.g.,
 
-    <div style="text-align: center"><img src="/images/OAuth-application.png" width="450px" /></div>
+    <div style="text-align: center"><img src="{{ site.baseurl }}/images/OAuth-application.png" width="450px" /></div>
 
     Note down the client id and the client secret key.
 2. Paste the following code at the end of the pages where the comment sections are to be placed (if necessary, comment out all the Disqus containers first). Then customize the Gitalk parameters by filling in one's own information. 
@@ -129,7 +129,7 @@ To view the resulting comment sections at this step:
 
 Each blog post is a page, and as Gitalk creates an issue for each page, the names of those `.md` files would become labels of the corresponding issues. E.g., this blog post is written in a `.md` file called `2019-06-17-Build-blog.md`, and the corresponding issue has labels `/2019/06/17/Build-blog` and `Gitalk`, as shown below.
 
-![](/images/Gitalk-issue.png){:width="800px"}
+![]({{ site.baseurl }}/images/Gitalk-issue.png){:width="800px"}
 
 And 50 characters is the limit of GitHub issue label, as discussed [here](https://github.com/gitalk/gitalk/issues/115).
 

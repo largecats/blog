@@ -27,7 +27,7 @@ Timeout errors may occur while the Spark application is running or even after th
 
 ### spark.rpc.RpcTimeoutException
 
-<div style="text-align: center"><img src="/images/spark_rpc_askTimeout.png" width="800px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/spark_rpc_askTimeout.png" width="800px" /></div>
 <div align="center">
 </div>
 
@@ -37,13 +37,13 @@ As suggested [here](https://stackoverflow.com/questions/39354909/how-to-tune-spa
 
 We observed that this error usually occurs while the query is running or just before the Spark application finishes.
 
-<div style="text-align: center"><img src="/images/java_util_concurrent_TimeoutException.png" width="800px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/java_util_concurrent_TimeoutException.png" width="800px" /></div>
 <div align="center">
 </div>
 
 As suggested [here](http://mail-archives.apache.org/mod_mbox/spark-issues/201807.mbox/%3CJIRA.13175917.1533061309000.129934.1533062580707@Atlassian.JIRA%3E), this error may appear if the user does not stop the Spark context after the Spark program finishes and ShutdownHookManger would have to stop the Spark context in 10s instead. A simple solution is to call `sc.stop()` at the end of the Spark application.
 
-<div style="text-align: center"><img src="/images/java_util_concurrent_TimeoutException2.png" width="800px" /></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/images/java_util_concurrent_TimeoutException2.png" width="800px" /></div>
 <div align="center">
 </div>
 
