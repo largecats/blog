@@ -277,11 +277,12 @@ for arg in ${param[@]}
     done
 # collect aggregated logs to designated directory
 sleep 5
-collect_log "${APPLICATION_ID}" "$LOG_DIR/${logFileName}.txt" 10 3
+collect_log "${APPLICATION_ID}" "${LOG_DIR}/${logFileName}.txt" 10 3
 collectLogExit=$?
 
 # exiting
 finalExit=$((${trapExit}+${sparkSubmitExit}+${collectLogExit}))
+echo "trapExit = ${trapExit}, sparkSubmitExit = ${sparkSubmitExit}, collectLogExit = ${collectLogExit}"
 exit_with_code ${finalExit}
 ```
 
