@@ -306,6 +306,7 @@ collect_log_helper() {
         then
             echo "Log collection failed. Waiting for retry..."
             return 2 # unlimited retry if spark job finished, because in this case it must have stdout/stderr log in the driver container
+            # Note: retry is only truly unlimited if there is no error, the process will still terminate upon exception, e.g., YARN's log size limit error
         else
             if [[ ! ${status} =~ "Log Aggregation Status : SUCCEEDED" ]] # log aggregation did not succeed
             then
@@ -317,6 +318,10 @@ collect_log_helper() {
                 then
                     echo "Log aggregation disabled. Skipping log collection..."
                     return 0
+                elif [[ ${status} =~ "Log Aggregation Status : TIME_OUT" ]]
+                then
+                    echo "Log aggregation time out. Aborting..."
+                    return -1
                 else
                     echo "Log aggregation incomplete. Waiting for retry..."
                     return 1 # application not in FINISHED status (possibly killed and may not have logs), limited retry
@@ -327,11 +332,11 @@ collect_log_helper() {
             fi
         fi
     else
-        # echo "yarn logs -applicationId ${applicationId} -log_files stdout stderr -am 1 | hadoop fs -appendToFile - ${logPath}"
-        # yarn logs -applicationId ${applicationId} -log_files stdout stderr -am 1 | hadoop fs -appendToFile - ${logPath}
-        echo "yarn logs -applicationId ${applicationId} -log_files stdout stderr -am 1 |& tee -a ${logPath}"
-        # (yarn logs -applicationId ${applicationId} -log_files stdout stderr -am 1 |& tee -a $logPath) >/dev/null # do not print log
-        yarn logs -applicationId ${applicationId} -log_files stdout stderr -am 1 |& tee -a ${logPath} # print log
+        # echo "yarn logs -applicationId ${applicationId} --size_limit_mb -1 -log_files stdout stderr -am 1 | hadoop fs -appendToFile - ${logPath}"
+        # yarn logs -applicationId ${applicationId} --size_limit_mb -1 -log_files stdout stderr -am 1 | hadoop fs -appendToFile - ${logPath}
+        echo "yarn logs -applicationId ${applicationId} --size_limit_mb -1 -log_files stdout stderr -am 1 |& tee -a ${logPath}"
+        # (yarn logs -applicationId ${applicationId} --size_limit_mb -1 -log_files stdout stderr -am 1 |& tee -a $logPath) >/dev/null # do not print log
+        yarn logs -applicationId ${applicationId} --size_limit_mb -1 -log_files stdout stderr -am 1 |& tee -a ${logPath} # print log
         statuses=( "${PIPESTATUS[@]}" ) # copy PIPESTATUS to array statuses
         yarnCmdStatus=${statuses[$(( ${#statuses[@]} - 2 ))]}
         hadoopCmdStatus=${statuses[$(( ${#statuses[@]} - 1 ))]}
@@ -353,19 +358,24 @@ collect_log() {
         maxRetryNo=5
         collect_log_helper ${applicationId} ${logPath}
         RET=$?
-        while [[ ${RET} -ne 0 && ${maxRetryNo} -gt 0 ]]; do
-            echo "Log collection failed, retrying in ${retryInterval} seconds..."
-            sleep ${retryInterval}
-            collect_log_helper ${applicationId} ${logPath}
-            RET=$?
-            maxRetryNo=$((maxRetryNo-1))
-        done
-        if [[ ${RET} -ne 0 && ${maxRetryNo} -eq 0 ]]
+        if [[ ${RET} -eq -1 ]]
         then
-            echo "Maximum number of retries reached. Aborting log collection..."
-            return 1
+            echo "Log collection failed. Aborting..."
         else
-            return ${RET}
+            while [[ (${RET} -eq 2) || (${RET} -eq 1 && ${maxRetryNo} -gt 0) ]]; do
+                echo "Log collection failed, retrying in ${retryInterval} seconds..."
+                sleep ${retryInterval}
+                collect_log_helper ${applicationId} ${logPath}
+                RET=$?
+                maxRetryNo=$((maxRetryNo-1))
+            done
+            if [[ ${RET} -eq 1 && ${maxRetryNo} -eq 0 ]]
+            then
+                echo "Maximum number of retries reached. Aborting log collection..."
+                return 1
+            else
+                return ${RET}
+            fi
         fi
     else
         echo "No applicationId. Skipping log collection..." # technically this won't happen
