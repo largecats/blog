@@ -303,33 +303,27 @@ collect_log_helper() {
     if [[ "$output" =~ "Can not find" ]] || [[ "$output" =~ "Unable to get" ]] || [[ "$output" =~ "File "+[a-z0-9\/\_]*+"${applicationId} does not exist." ]] # log aggregation not ready yet
     then
         echo "${output}"
-        if [[ ${status} =~ "State : FINISHED" ]]
+        if [[ "${status}" =~ "Log Aggregation Status : NOT_START" || "${status}" =~ "Log Aggregation Status : N/A" ]]
         then
-            echo "Log collection failed. Waiting for retry..."
-            return 2 # unlimited retry if spark job finished, because in this case it must have stdout/stderr log in the driver container
-            # Note: retry is only truly unlimited if there is no error, the process will still terminate upon exception, e.g., YARN's log size limit error
+            echo "Log aggregation not started. Skipping log collection..." # usually because log is not generated, e.g., application was killed before it started runnning
+            return 0
+        elif [[ ${status} =~ "Log Aggregation Status : DISABLED" ]]
+        then
+            echo "Log aggregation disabled. Skipping log collection..."
+            return 0
+        elif [[ ${status} =~ "Log Aggregation Status : TIME_OUT" ]]
+        then
+            echo "Log aggregation time out. Aborting..."
+            return -1
         else
-            if [[ ! ${status} =~ "Log Aggregation Status : SUCCEEDED" ]] # log aggregation did not succeed
+            if [[ ${status} =~ "State : FINISHED" ]]
             then
-                if [[ "${status}" =~ "Log Aggregation Status : NOT_START" || "${status}" =~ "Log Aggregation Status : N/A" ]]
-                then
-                    echo "Log aggregation not started. Skipping log collection..." # usually because log is not generated, e.g., application was killed before it started runnning
-                    return 0
-                elif [[ ${status} =~ "Log Aggregation Status : DISABLED" ]]
-                then
-                    echo "Log aggregation disabled. Skipping log collection..."
-                    return 0
-                elif [[ ${status} =~ "Log Aggregation Status : TIME_OUT" ]]
-                then
-                    echo "Log aggregation time out. Aborting..."
-                    return -1
-                else
-                    echo "Log aggregation incomplete. Waiting for retry..."
-                    return 1 # application not in FINISHED status (possibly killed and may not have logs), limited retry
-                fi
-            else # log aggregation SUCCEEDED but log collection still failed
                 echo "Log collection failed. Waiting for retry..."
-                return 1 # if job status went from ACCEPTED -> FAILED without RUNNING, log aggregation may still succeed (without a stdout/stderr log in the driver container), so make this limited retry
+                return 2 # unlimited retry if spark job finished, because in this case it must have stdout/stderr log in the driver container
+                # Note: retry is only truly unlimited if there is no error, the process will still terminate upon exception, e.g., YARN's log size limit error
+            else
+                echo "Log aggregation incomplete. Waiting for retry..."
+                return 1 # application not in FINISHED status (possibly killed and may not have logs), limited retry
             fi
         fi
     else
