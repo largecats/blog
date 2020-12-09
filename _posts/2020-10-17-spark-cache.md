@@ -30,10 +30,13 @@ Dataframes or tables may be cached in the following ways.
 * `df.cache()` - lazy, `df` is only evaluated after an action is called.
 * `spark.catalog.cacheTable('t0')` - also lazy.
 * `spark.sql('cache table t0')` - eager, `t0` is evaluated immediately.
+* In Spark 3, `spark.sql("CACHE LAZY TABLE t0")` allows caching `t0` lazily via the Spark SQL engine.
+
 
 ### Ways to "uncache"
 * `df.unpersist()` - convenient when there is a variable readily referencing the dataframe.
 * `spark.catalog.clearCache()` - will clear all dataframes/tables cached via any of the above 3 ways.
+* `spark.sql("UNCACHE TABLE t0")` - uncache tables cached via `spark.sql()`.
 
 ```sh
 >>> l = [('Alice', 1)]
