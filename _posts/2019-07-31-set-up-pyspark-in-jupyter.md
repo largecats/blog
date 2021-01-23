@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Setting up PySpark with Jupyter Notebook"
+title:  "Setting up PySpark in Jupyter Notebook"
 date:   2019-07-31 15:12
 categories: life-saver work
 tags: spark pyspark
