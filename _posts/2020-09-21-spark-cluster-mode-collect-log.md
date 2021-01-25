@@ -265,16 +265,9 @@ Use the extracted applicationId to collect logs to designated directory after th
 LOG_DIR="${ROOT}/logs/${FOLDER_NAME}"
 mkdir -p ${LOG_DIR}
 # construct name of log file from parameters
-logFileName=${SCRIPT_NAME}
-for arg in ${param[@]}
-    do
-        if [[ ! $arg =~ "${ROOT_HDFS}" ]]
-        then
-            logFileName+="_${arg}"
-        else
-            logFileName+="_${arg//\//-}" # change / to - in path so that the path can appear in the name of the log file
-        fi
-    done
+logFileName="${SCRIPT_NAME} ${param}"
+logFileName=${logFileName// /_}
+logFileName=${logFileName//\/-}
 # collect aggregated logs to designated directory
 sleep 5
 collect_log "${APPLICATION_ID}" "${LOG_DIR}/${logFileName}.txt" 10 3
