@@ -5,6 +5,17 @@ date:   2021-01-02
 categories: work
 tags: spark
 ---
+<head>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']]
+            }
+        });
+    </script>
+</head>
 * content
 {:toc}
 
@@ -259,7 +270,7 @@ This generates many small files, which could be problematic for HDFS performance
 ```
 This reduces the number of parquet files, but would be skewed if the data is not evenly distributed among different countries (e.g., if China has much more records than the other two, it would be infeasible to write all its data into a single parquet file).
 
-`df.repartition($"country").write.option("maxRecordsPerFile", n).partitionBy($"country").parquet("...")` will create 1 folder of parquet files for each country, and each parquet files has <= n records. E.g., with `n = 3`:
+`df.repartition($"country").write.option("maxRecordsPerFile", n).partitionBy("country").parquet("...")` will create 1 folder of parquet files for each country, and each parquet files has <= n records. E.g., with `n = 3`:
 ```shell
 /.../country=America/part-00166-ea943b36-4d09-4675-99b5-0d0bbf4c346e.c000.snappy.parquet
 
@@ -289,5 +300,5 @@ scala> spark.read.parquet("/.../country=China/part-00059-ea943b36-4d09-4675-99b5
 
 ## References
 
-[https://mungingdata.com/apache-spark/partitionby/](https://mungingdata.com/apache-spark/partitionby/)
-[https://www.codenong.com/42283766/](https://www.codenong.com/42283766/)
+* [https://mungingdata.com/apache-spark/partitionby/](https://mungingdata.com/apache-spark/partitionby/)
+* [https://www.codenong.com/42283766/](https://www.codenong.com/42283766/)
