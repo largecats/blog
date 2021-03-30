@@ -41,13 +41,13 @@ We can add framework package as a submodule to each of the pipeline repos. Howev
 
 Alternatively, we can maintain the framework package separately. This means separate development, build, and unit tests.
 
-#### Python
+**Python**
 
 Dev environment: `pip install` framework package locally to allow IDE references when developing in pipeline repos.
 
 Live environment: The framework package needs to be zipped and added to `--py-files` in the `spark-submit` command of each job launched from the pipeline repos.
 
-#### Scala (sbt)
+**Scala (sbt)**
 
 Dev environment: Include the framework package as dependency in the build definition. See [this post](https://largecats.github.io/blog/2021/03/30/sbt-multiproject-dependency/).
 
@@ -55,10 +55,11 @@ Live environment: Build framework package, then build pipeline repos using the f
 
 ## CI/CD
 
-### Python
+**Python**
 
 There is no build dependency. Once the framework package is updated and zipped, the pipeline jobs will automatically be using the updated framework that is added via `--py-files`. The CI/CD pipeline of the framework package does not need to trigger any downstream CI/CD pipelines in build stage.
 
-### Scala (sbt)
+**Scala (sbt)**
+
 The pipeline repos need to include the framework package in their build. And so each time the framework package is built, the pipelien repos that depend on it also need to be re-built. This can be done using Gitlab CI/CD's [multi-project pipeline](https://docs.gitlab.com/ee/ci/multi_project_pipelines.html) feature.
 
