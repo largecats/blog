@@ -3,7 +3,7 @@ layout: post
 title:  "sbt Multi-Project Dependency"
 date:   2021-03-30
 categories: work
-tags: spark
+tags: spark sbt scala
 ---
 <head>
     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
