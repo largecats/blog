@@ -37,6 +37,7 @@ id	country
 9   China
 10  Russia
 ```
+Creating sample DataFrame:
 ```scala
 import spark.implicits._
 
