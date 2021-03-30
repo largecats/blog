@@ -27,9 +27,10 @@ If a project depends on an external project, how to manage the dependency in sbt
 
 Add the external project's git repo link to the build.sbt file of the project. E.g.:
 ```scala
-lazy val someLibrary =
-  ProjectRef(uri("https://xxx.git#v0.0.1"), "someLibrary") // directly load package from git
+lazy val someLibrary = ProjectRef(uri("https://xxx.git#v0.0.1"), "someLibrary") // directly load package from git
 ```
+See [here](https://www.scala-sbt.org/1.x/api/sbt/ProjectRef.html) for details on `ProjectRef`.
+
 After importing sbt changes, the external project will be installed in 
 ```
 C:\Users\<username>\.sbt\1.0\staging\273fb42ed4714bd36627\some-library
@@ -50,7 +51,6 @@ Add the external project's source root directory to the build.sbt file of the pr
 ```scala
 lazy val someLibrary = ProjectRef(file("../some-library"), "someLibrary")
 ```
-See [here](https://www.scala-sbt.org/1.x/api/sbt/ProjectRef.html) for details on `ProjectRef`.
 
 After importing sbt changes, the external project will be included in the IntelliJ IDE's project explorer view:
 ```
