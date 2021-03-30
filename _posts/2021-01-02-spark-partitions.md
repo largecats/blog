@@ -25,13 +25,13 @@ Spark partitions are important for parallelism.
 
 Sample data of student ids and their nationality:
 ```
-id	country
-1	Russia
-2	America
-3	China
-4	China
-5	China
-6	Russia
+id  country
+1   Russia
+2   America
+3   China
+4   China
+5   China
+6   China
 7   America
 8   Russia
 9   China
