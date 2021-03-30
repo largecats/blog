@@ -300,5 +300,5 @@ scala> spark.read.parquet("/.../country=China/part-00059-ea943b36-4d09-4675-99b5
 
 ## References
 
-https://mungingdata.com/apache-spark/partitionby/
-https://www.codenong.com/42283766/
+[https://mungingdata.com/apache-spark/partitionby/](https://mungingdata.com/apache-spark/partitionby/)
+[https://www.codenong.com/42283766/](https://www.codenong.com/42283766/)
