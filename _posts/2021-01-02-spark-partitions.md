@@ -225,20 +225,20 @@ res21: Array[Array[org.apache.spark.sql.Row]] = Array(
 
 These are separate folders stored in HDFS.
 
-`df.repartition(n).write.parquet("/user/xxx/example/repartition_n")` will generate `max(n. number of records in df + 1)` parquet files under "/user/xxx/example/repartition_n". E.g., `df.repartition(200)` generates 11 parquet files, with the first one empty, and the rest containing 1 record each:
+`df.repartition(n).write.parquet("...")` will generate `max(n. number of records in df + 1)` parquet files under "/user/xxx/example/repartition_n". E.g., `df.repartition(200)` generates 11 parquet files, with the first one empty, and the rest containing 1 record each:
 ```shell
-/user/xxx/example/repartition_200/_SUCCESS
-/user/xxx/example/repartition_200/part-00000-e630013a-6cb6-4e4f-984c-a49e371794db-c000.snappy.parquet
-/user/xxx/example/repartition_200/part-00109-e630013a-6cb6-4e4f-984c-a49e371794db-c000.snappy.parquet
-/user/xxx/example/repartition_200/part-00110-e630013a-6cb6-4e4f-984c-a49e371794db-c000.snappy.parquet
-/user/xxx/example/repartition_200/part-00135-e630013a-6cb6-4e4f-984c-a49e371794db-c000.snappy.parquet
-/user/xxx/example/repartition_200/part-00136-e630013a-6cb6-4e4f-984c-a49e371794db-c000.snappy.parquet
-/user/xxx/example/repartition_200/part-00137-e630013a-6cb6-4e4f-984c-a49e371794db-c000.snappy.parquet
-/user/xxx/example/repartition_200/part-00161-e630013a-6cb6-4e4f-984c-a49e371794db-c000.snappy.parquet
-/user/xxx/example/repartition_200/part-00162-e630013a-6cb6-4e4f-984c-a49e371794db-c000.snappy.parquet
-/user/xxx/example/repartition_200/part-00186-e630013a-6cb6-4e4f-984c-a49e371794db-c000.snappy.parquet
-/user/xxx/example/repartition_200/part-00187-e630013a-6cb6-4e4f-984c-a49e371794db-c000.snappy.parquet
-/user/xxx/example/repartition_200/part-00188-e630013a-6cb6-4e4f-984c-a49e371794db-c000.snappy.parquet
+/.../_SUCCESS
+/.../part-00000-e630013a-6cb6-4e4f-984c-a49e371794db-c000.snappy.parquet
+/.../part-00109-e630013a-6cb6-4e4f-984c-a49e371794db-c000.snappy.parquet
+/.../part-00110-e630013a-6cb6-4e4f-984c-a49e371794db-c000.snappy.parquet
+/.../part-00135-e630013a-6cb6-4e4f-984c-a49e371794db-c000.snappy.parquet
+/.../part-00136-e630013a-6cb6-4e4f-984c-a49e371794db-c000.snappy.parquet
+/.../part-00137-e630013a-6cb6-4e4f-984c-a49e371794db-c000.snappy.parquet
+/.../part-00161-e630013a-6cb6-4e4f-984c-a49e371794db-c000.snappy.parquet
+/.../part-00162-e630013a-6cb6-4e4f-984c-a49e371794db-c000.snappy.parquet
+/.../part-00186-e630013a-6cb6-4e4f-984c-a49e371794db-c000.snappy.parquet
+/.../part-00187-e630013a-6cb6-4e4f-984c-a49e371794db-c000.snappy.parquet
+/.../part-00188-e630013a-6cb6-4e4f-984c-a49e371794db-c000.snappy.parquet
 ```
 
 `df.write.partitionBy("country").parquet("...")` generates 1 folder for each country, and under each country folder, there would be 1 parquet file from each partition that contains that country.
