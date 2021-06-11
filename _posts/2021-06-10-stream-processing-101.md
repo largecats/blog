@@ -24,6 +24,7 @@ This post is based on a sharing I did on general concepts in stream processing.
 
 
 
+
 ## Background
 
 Given a stream of events:
