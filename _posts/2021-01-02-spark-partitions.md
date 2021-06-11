@@ -225,7 +225,7 @@ res21: Array[Array[org.apache.spark.sql.Row]] = Array(
 
 These are separate folders stored in HDFS.
 
-`df.repartition(n).write.parquet("...")` will generate `max(n. number of records in df + 1)` parquet files under "/user/xxx/example/repartition_n". E.g., `df.repartition(200)` generates 11 parquet files, with the first one empty, and the rest containing 1 record each:
+`df.repartition(n).write.parquet("...")` will generate `max(n, number of records in df + 1)` parquet files under "/user/xxx/example/repartition_n". E.g., `df.repartition(200)` generates 11 parquet files, with the first one empty, and the rest containing 1 record each:
 ```shell
 /.../_SUCCESS
 /.../part-00000-e630013a-6cb6-4e4f-984c-a49e371794db-c000.snappy.parquet
