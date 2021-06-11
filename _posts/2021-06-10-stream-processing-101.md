@@ -4,6 +4,7 @@ title:  "Stream Processing 101"
 date:   2021-06-10
 categories: work
 tags: flink
+exceprt: This post is based on a sharing I did on general concepts in stream processing.
 ---
 <head>
     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
@@ -19,10 +20,6 @@ tags: flink
 </head>
 * content
 {:toc}
-
-This post is based on a sharing I did on general concepts in stream processing.
-
-
 
 ## Background
 
