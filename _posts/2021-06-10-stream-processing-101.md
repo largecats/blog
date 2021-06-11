@@ -22,6 +22,8 @@ tags: flink
 
 This post is based on a sharing I did on general concepts in stream processing.
 
+
+
 ## Background
 
 Given a stream of events:
@@ -31,8 +33,6 @@ Given a stream of events:
 </div>
 
 How to process it?
-
-
 
 ### Batch Processing
 
