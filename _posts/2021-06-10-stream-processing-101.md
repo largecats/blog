@@ -27,7 +27,7 @@ This post is based on a sharing I did on general concepts in stream processing.
 
 ## Background
 
-Given a stream of events:
+Given a stream of eventss:
 
 <div style="text-align: center"><img src="{{ site.baseurl }}/images/flink-events.png" width="800px" /></div>
 <div align="center">
