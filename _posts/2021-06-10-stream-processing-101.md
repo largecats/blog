@@ -400,7 +400,7 @@ Because watermark is updated together with max event time, the watermark line is
 
 ## Stream Processing Frameworks
 
-That Structured Streaming is based on micro-batch and Flink is based on real streaming underlies many differences in their implementations of window, trigger, watermark, etc. In general, Flink offers more flexibility when it comes to customizations, which would be helpful for implementing complicated streaming logic.
+That Structured Streaming is based on micro-batch and Flink is based on real streaming underlies many differences in their implementations of window, trigger, watermark, etc.
 
 |  | Structured Streaming | Flink |
 |-|-|-|
@@ -409,6 +409,8 @@ That Structured Streaming is based on micro-batch and Flink is based on real str
 | Time | Processing time<br> Event time<br> | Processing time<br> Ingestion time<br> Event time<br> |
 | Windowing | Tumbling, sliding, session windows | Tumbling, sliding, session windows<br> Custom window<br> |
 | Watermark | Fixed delay threshold | Marker that flows within data stream<br>  Based on processing time, event time, event, etc |
+
+In general, Flink offers more flexibility when it comes to customizations, which would be helpful for implementing complicated streaming logic.
 
 ## References
 
