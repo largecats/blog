@@ -42,7 +42,7 @@ The next two steps enable launching the blog site for local preview (shown in st
 
 **4. Install Ruby**
 
-Download and install Ruby with devkit [here](https://rubyinstaller.org/downloads/).
+Download and install Ruby with devkit [here](https://rubyinstaller.org/downloads/). Settings in this blog works with rubyinstaller-devkit-2.6.3-1-x64.
 
 **5. Install Jekyll**
 
